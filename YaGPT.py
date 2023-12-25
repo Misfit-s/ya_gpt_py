@@ -2,14 +2,15 @@ import requests
 import json
 from typing import Optional
 
+
 class AuthData:
-    def Token(self, iam_token: str = None) -> None:
+    def Token(iam_token: str = None) -> None:
         if not iam_token:
             raise TypeError("It is necessary to specify a IAM token.")
         else:
             return iam_token
 
-    def CatalogID(self, catalog_id: str = None) -> None:
+    def CatalogID(catalog_id: str = None) -> None:
         if not catalog_id:
             raise TypeError("It is necessary to specify a Catalog ID.")
         else:
@@ -17,10 +18,10 @@ class AuthData:
 
 
 class Messages:
-    def system(self, system_message: Optional[str] = None) -> None:
+    def system(system_message: Optional[str] = None) -> None:
         return system_message
 
-    def user(self, user_message: str = None) -> None:
+    def user(user_message: str = None) -> None:
         if not user_message:
             raise TypeError("It is necessary to specify a message.")
         else:
@@ -29,28 +30,31 @@ class Messages:
 
 class Response:
     def getResponse(
-        self,
+        token: str,
+        id: str,
+        user_message: str,
+        system_message: Optional[str] = None,
+        max_tokens: Optional[int] = 2000,
         stream: Optional[bool] = False,
         temperature: Optional[float] = 0.6,
-        max_tokens: Optional[int] = 2000
     ) -> None:
         url = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {AuthData.Token}",
-            "x-folder-id": f"{AuthData.CatalogID}",
+            "Authorization": f"Bearer {token}",
+            "x-folder-id": f"{id}",
         }
 
         data = {
-            "modelUri": f"gpt://{AuthData.CatalogID}/yandexgpt-lite",
+            "modelUri": f"gpt://{id}/yandexgpt-lite",
             "completionOptions": {
                 "stream": stream,
                 "temperature": temperature,
                 "maxTokens": max_tokens,
             },
             "messages": [
-                {"role": "system", "text": f"{Messages.system}"},
-                {"role": "user", "text": f"{Messages.user}"},
+                {"role": "system", "text": f"{system_message}"},
+                {"role": "user", "text": f"{user_message}"},
             ],
         }
 
