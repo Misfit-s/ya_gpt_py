@@ -6,7 +6,7 @@ import YaGPT
 token = YaGPT.AuthData.Token = os.getenv("YA_IAM_TOKEN")
 id = YaGPT.AuthData.CatalogID(os.getenv("YA_FOLDER_ID"))
 
-input_message = input("Введите сообщение: ")
+input_message = input("Input message: ")
 
 message = YaGPT.Messages.user(input_message)
 
