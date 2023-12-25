@@ -19,7 +19,7 @@ input_tokens = data['result']['usage']['inputTextTokens']
 completion_tokens = data['result']['usage']['completionTokens']
 total_tokens = data['result']['usage']['totalTokens']
 
-print(f'Текст: {text}')
-print(f'Токены ввода: {input_tokens}')
-print(f'Токены ответа: {completion_tokens}')
-print(f'Всего токенов: {total_tokens}')
+print(f'Text: {text}')
+print(f'Input tokens: {input_tokens}')
+print(f'Answer tokens: {completion_tokens}')
+print(f'Total tokens: {total_tokens}')
