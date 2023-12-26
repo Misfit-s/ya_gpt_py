@@ -1,6 +1,6 @@
 """
 
-YandexGPT Python library (yagpt_py) v.0.0.1
+YandexGPT Python library (yagpt_py) v.0.0.5
 
 The MIT License Copyright © Danila Suravenkov
 
