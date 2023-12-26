@@ -1,18 +1,21 @@
 import os
 import json
-import YaGPT
+from yagpt_py.yagpt_py.response import Response as rp
+from yagpt_py.yagpt_py.authData import AuthData as ad
+from yagpt_py.yagpt_py.messages import Messages as ms
 
-
-token = YaGPT.AuthData.Token(os.getenv("YA_IAM_TOKEN"))
-id = YaGPT.AuthData.CatalogID(os.getenv("YA_FOLDER_ID"))
+token = ad.iam_token = (os.getenv("YA_IAM_TOKEN"))
+id = ad.catalog_id = (os.getenv("YA_FOLDER_ID"))
 
 input_message = input("Input message: ")
 
-message = YaGPT.Messages.user(input_message)
+message = ms.user_message_text = input_message
 
-response = YaGPT.Response.getResponse(token, id, message).text
+response = rp(token, id, message)
 
-data = json.loads(response)
+response_text = response.getResponse()
+
+data = json.loads(response_text)
 
 try:
     text = data['result']['alternatives'][0]['message']['text']
